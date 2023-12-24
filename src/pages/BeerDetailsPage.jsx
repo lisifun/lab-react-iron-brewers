@@ -7,7 +7,7 @@ import { API_URL } from "../services/API_URL";
 
 function BeerDetailsPage() {
   // Mock initial state, to be replaced by data from the Beers API. Store the beer info retrieved from the Beers API in this state variable.
-  const [beer, setBeer] = useState(beersJSON[0]);
+  const [beer, setBeer] = useState(null);
 
   // React Router hook for navigation. We use it for the back button. You can leave this as it is.
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function BeerDetailsPage() {
   const { beerId } = useParams();
   useEffect(() => {
     axios
-      .get(API_URL + `/${beerId}`)
+      .get(`${API_URL}beers/${beerId}`)
       .then((response) => setBeer(response.data))
       .catch((err) => console.log(err));
   }, []);

@@ -16,7 +16,7 @@ function AllBeersPage() {
   // 3. Use the response data from the Beers API to update the state variable.
   useEffect(() => {
     axios
-      .get(API_URL)
+      .get(`${API_URL}beers`)
       .then((response) => setBeers(response.data))
       .catch((err) => console.log(err));
   }, []);
