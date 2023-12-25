@@ -10,6 +10,8 @@ function AllBeersPage() {
   // Mock initial state, to be replaced by data from the API. Once you retrieve the list of beers from the Beers API store it in this state variable.
   const [beers, setBeers] = useState(beersJSON);
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   // TASKS:
   // 1. Set up an effect hook to make a request to the Beers API and get a list with all the beers.
   // 2. Use axios to make a HTTP request.
@@ -21,14 +23,20 @@ function AllBeersPage() {
       .catch((err) => console.log(err));
   }, []);
 
+  let filtered = searchTerm
+    ? beers.filter((beer) =>
+        beer.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : beers;
+
   // The logic and the structure for the page showing the list of beers. You can leave this as it is for now.
   return (
     <>
-      <Search />
+      <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       <div className="d-inline-flex flex-wrap justify-content-center align-items-center w-100 p-4">
         {beers &&
-          beers.map((beer, i) => {
+          filtered.map((beer, i) => {
             return (
               <div key={i}>
                 <Link to={"/beers/" + beer._id}>
